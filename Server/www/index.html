@@ -155,12 +155,17 @@
             z-index: 1000;
         }
 
+        /* ▼▼▼ [수정된 부분] 비디오 스타일 ▼▼▼ */
         video {
-            width: 85%;
-            max-width: 1200px;
+            width: 100%;            /* 너비는 화면에 맞춤 */
+            max-width: 1200px;      /* 최대 너비 제한 */
+            max-height: 80vh;       /* ★핵심: 높이가 화면의 80%를 넘지 않게 함 */
+            object-fit: contain;    /* ★핵심: 영상 비율 유지하며 박스 안에 맞춤 (짤림 방지) */
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
             border-radius: 4px;
+            background-color: black; /* 빈 공간은 검은색으로 */
         }
+        /* ▲▲▲ [수정 완료] ▲▲▲ */
 
         .close-btn {
             position: absolute;
@@ -356,8 +361,8 @@
             fetch(`/api/load?u=${currentUserId}&v=${encodedName}`)
                 .then(response => response.json())
                 .then(data => {
-                    // 3초 이상 기록이 있을 때만 물어봄
-                    if (data.status === 'success' && data.time > 3) {
+                    // 1초 이상 기록이 있을 때만 물어봄
+                    if (data.status === 'success' && data.time > 0) {
                         const timeString = formatTime(data.time);
                         const userConfirm = confirm(`이전 시청 기록이 발견되었습니다. (${timeString})\n이어서 시청하시겠습니까?`);
                         
