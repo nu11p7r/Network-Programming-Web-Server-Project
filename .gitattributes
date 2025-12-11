@@ -61,3 +61,11 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Force Windows Line Endings (CRLF) for Visual Studio Project Files
+# ZIP 다운로드 시에도 윈도우 스타일 유지 강제 설정
+###############################################################################
+*.sln       text eol=crlf
+*.vcxproj   text eol=crlf
+*.filters   text eol=crlf
