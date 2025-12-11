@@ -85,18 +85,20 @@
       <AdditionalDependencies>ws2_32.lib;libpq.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>:: PostgreSQL 필수 DLL 복사 (모든 버전 호환되게 * 사용)
-xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libpq.dll" "$(OutDir)"
+      <Command>xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libpq.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libintl-*.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libiconv-*.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libcrypto-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libssl-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libwinpthread-*.dll" "$(OutDir)"
 
-:: 프로젝트 파일 복사
-xcopy /y /d "$(ProjectDir)ffmpeg.exe" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)index.html" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)*.mp4" "$(OutDir)"</Command>
+if not exist "$(OutDir)www" mkdir "$(OutDir)www"
+if not exist "$(OutDir)media" mkdir "$(OutDir)media"
+if not exist "$(OutDir)thumbs" mkdir "$(OutDir)thumbs"
+
+if exist "$(ProjectDir)www\index.html" xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
+if exist "$(ProjectDir)media\*.mp4" xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
+if exist "$(ProjectDir)thumbs\*.jpg" xcopy /y /d /i "$(ProjectDir)thumbs\*.jpg" "$(OutDir)thumbs\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,9 +118,20 @@ xcopy /y /d "$(ProjectDir)*.mp4" "$(OutDir)"</Command>
       <AdditionalDependencies>ws2_32.lib;libpq.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "$(ProjectDir)ffmpeg.exe" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)index.html" "$(OutDir)"
-xcopy /y /d "$(ProjectDir)*.mp4" "$(OutDir)"</Command>
+      <Command>xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libpq.dll" "$(OutDir)"
+xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libintl-*.dll" "$(OutDir)"
+xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libiconv-*.dll" "$(OutDir)"
+xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libcrypto-*-x64.dll" "$(OutDir)"
+xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libssl-*-x64.dll" "$(OutDir)"
+xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libwinpthread-*.dll" "$(OutDir)"
+
+if not exist "$(OutDir)www" mkdir "$(OutDir)www"
+if not exist "$(OutDir)media" mkdir "$(OutDir)media"
+if not exist "$(OutDir)thumbs" mkdir "$(OutDir)thumbs"
+
+if exist "$(ProjectDir)www\index.html" xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
+if exist "$(ProjectDir)media\*.mp4" xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
+if exist "$(ProjectDir)thumbs\*.jpg" xcopy /y /d /i "$(ProjectDir)thumbs\*.jpg" "$(OutDir)thumbs\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,12 +155,14 @@ xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libiconv-*.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libcrypto-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libssl-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libwinpthread-*.dll" "$(OutDir)"
+
 if not exist "$(OutDir)www" mkdir "$(OutDir)www"
 if not exist "$(OutDir)media" mkdir "$(OutDir)media"
 if not exist "$(OutDir)thumbs" mkdir "$(OutDir)thumbs"
-xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
-xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
-xcopy /y /d /i "$(ProjectDir)thumbs\*.mp4" "$(OutDir)thumbs\"</Command>
+
+if exist "$(ProjectDir)www\index.html" xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
+if exist "$(ProjectDir)media\*.mp4" xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
+if exist "$(ProjectDir)thumbs\*.jpg" xcopy /y /d /i "$(ProjectDir)thumbs\*.jpg" "$(OutDir)thumbs\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -173,12 +188,14 @@ xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libiconv-*.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libcrypto-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libssl-*-x64.dll" "$(OutDir)"
 xcopy /y /d "C:\Program Files\PostgreSQL\18\bin\libwinpthread-*.dll" "$(OutDir)"
+
 if not exist "$(OutDir)www" mkdir "$(OutDir)www"
 if not exist "$(OutDir)media" mkdir "$(OutDir)media"
 if not exist "$(OutDir)thumbs" mkdir "$(OutDir)thumbs"
-xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
-xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
-xcopy /y /d /i "$(ProjectDir)thumbs\*.mp4" "$(OutDir)thumbs\"</Command>
+
+if exist "$(ProjectDir)www\index.html" xcopy /y /d /i "$(ProjectDir)www\index.html" "$(OutDir)www\"
+if exist "$(ProjectDir)media\*.mp4" xcopy /y /d /i "$(ProjectDir)media\*.mp4" "$(OutDir)media\"
+if exist "$(ProjectDir)thumbs\*.jpg" xcopy /y /d /i "$(ProjectDir)thumbs\*.jpg" "$(OutDir)thumbs\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
