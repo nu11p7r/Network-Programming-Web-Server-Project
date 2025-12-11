@@ -12,7 +12,7 @@ int main()
 		return 1;
 	}
 
-	SOCKET hServer = CreateSocket(0, "8080");
+	SOCKET hServer = CreateSocket(0, "80");
 	char szCurrentDir[1024];
 	_getcwd(szCurrentDir, sizeof(szCurrentDir));
 
