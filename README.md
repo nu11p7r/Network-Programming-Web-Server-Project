@@ -35,7 +35,29 @@ I/O Multiplexing(Select 모델)을 적용하여 단일 스레드 환경에서도
 1. **PostgreSQL 18**: 설치 시 `Command Line Tools`와 `Development Files`를 반드시 포함해야 합니다.
 2. **FFmpeg**: 설치 후 `ffmpeg.exe`가 있는 `bin` 폴더를 시스템 환경 변수 `PATH`에 등록해야 합니다.
 
-### 2. 데이터베이스 설정 (Database Setup)
+### 2. 프로젝트 설정 (Visual Studio)
+
+**1) 소스 코드 설정 (필수!)**
+소스 코드 폴더 내의 **`DatabaseManager.h`** 파일을 열고, 아래 부분을 **본인의 PostgreSQL 설치 시 설정한 계정 정보(비밀번호 등)** 로 수정해야 합니다.
+
+```c
+#pragma once
+#ifndef DATABASE_MANAGER_H
+#define DATABASE_MANAGER_H
+
+// [설정 필요] 현재 PC에서 사용 중인 userName과 password로 설정해 주세요.
+// 예시: "host=localhost port=5432 dbname=ott_db user=postgres password=내비밀번호"
+#define DB_CONNINFO "host=localhost port=5432 dbname=ott_db user=postgres password=root"
+
+void DbTestConnection();
+int DbRegister(const char *szUsername, const char *szPassword);
+int DbLogin(const char *szUsername, const char *szPassword);
+void DbSaveProgress(const char *szUsername, const char *szVideo, int iTime);
+int DbLoadProgress(const char *szUsername, const char *szVideo);
+
+#endif
+```
+### 3. 데이터베이스 설정 (Database Setup)
 PostgreSQL 쉘(psql) 또는 pgAdmin에서 아래 쿼리를 실행하여 DB와 테이블을 생성합니다.
 
 ```sql
@@ -56,3 +78,4 @@ CREATE TABLE history (
     PRIMARY KEY (username, video_name),
     FOREIGN KEY (username) REFERENCES users(username)
 );
+```

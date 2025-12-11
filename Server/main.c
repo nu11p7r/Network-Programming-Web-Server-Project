@@ -22,7 +22,7 @@ int main()
 	LogInfo("SYSTEM", "========================================");
 	LogInfo("SYSTEM", "실행 경로: %s", szCurrentDir);
 	LogInfo("SYSTEM", "리소스: %s, %s, %s", DIR_WEB, DIR_MEDIA, DIR_THUMB);
-	PrintServerIp(8080);
+	PrintServerIp(80);
 
 	DbTestConnection();
 
